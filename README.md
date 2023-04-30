@@ -1,8 +1,6 @@
-# Vite + Svelte + Tailwind
+# Deadly Simple Timer + PWA
 
-Boilerplate for Vite + Svelte + Tailwind setup in 2023
-
-Demo: https://svelte-tailwind-kit.web.app
+Demo: https://ds-timer.web.app
 
 ## Setup
 
