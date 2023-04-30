@@ -1,0 +1,8 @@
+{
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.includeLanguages": {
+    "svelte": "html"
+  }
+}
