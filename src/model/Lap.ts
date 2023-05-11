@@ -1,11 +1,14 @@
 import { useLocalStorage } from "utils/LocalStorage"
 
-type LapData = {
+export type LapData = {
   laps: {
-    [t: number]: {
-      name?: string,
-    }
+    [t: number]: LapDataItem
   }
+}
+
+export type LapDataItem = {
+  name?: string,
+  seconds?: number,
 }
 
 export const lap = useLocalStorage<LapData>('lap-data-3', {
@@ -15,6 +18,7 @@ export const lap = useLocalStorage<LapData>('lap-data-3', {
 let last: number;
 export const addLap = (props?: {
   name?: string,
+  seconds?: number,
 }) => {
   const now = Date.now();
   if (last && Math.abs(last - now) < 1000) {
@@ -28,9 +32,27 @@ export const addLap = (props?: {
       laps: {
         ...v.laps,
         [now]: {
-          name: props?.name
+          name: props?.name,
+          seconds: props?.seconds
         }
       }
+    }
+  })
+}
+
+export const updateLaps = (laps: {
+  time: number,
+  lap: LapDataItem
+}[]) => {
+  lap.update((v) => {
+    const nextLaps = {
+      ...v.laps,
+    };
+    laps.forEach(({ time, lap }) => {
+      nextLaps[time] = lap;
+    })
+    return {
+      laps: nextLaps
     }
   })
 }
