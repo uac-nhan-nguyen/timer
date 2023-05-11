@@ -7,8 +7,11 @@ export default defineConfig({
   plugins: [
     svelte(),
     VitePWA({ 
-      registerType: 'autoUpdate' ,
+      registerType: 'prompt' ,
       includeAssets: ['logo.svg', 'apple-touch-icon.png', 'masked-icon.svg'],
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      },
       manifest: {
         name: 'Timer',
         short_name: 'Timer',

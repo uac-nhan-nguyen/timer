@@ -9,8 +9,8 @@
   const ONE_HOUR = 1000 * 60 * 60;
   const ONE_DAY = 1000 * 60 * 60 * 24;
 
-  const { seconds } = item.lap;
-  const format =
+  $: seconds = item.lap.seconds;
+  $: format =
     seconds == null
       ? ""
       : seconds < ONE_HOUR
@@ -24,10 +24,10 @@
   <div>{dayjs(item.time).format("YYYY-MM-DD HH:mm:ss")}</div>
 
   {#if editing}
-    <input bind:value={item.lap.name} />
+    <input class="text-[12px]" bind:value={item.lap.name} />
     <InlineButton on:click={() => deleteLap(item.time)}>Delete</InlineButton>
   {:else}
     <div class="min-w-[100px]">{item.lap.name ?? ""}</div>
-    <div>{dayjs.utc(seconds).format(format)}</div>
+    <div>{seconds ? dayjs.utc(seconds).format(format) : ""}</div>
   {/if}
 </div>
