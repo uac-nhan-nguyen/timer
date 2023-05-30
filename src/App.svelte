@@ -11,6 +11,7 @@
 
   let start = useLocalStorage("timerStart", Date.now());
   let editing = false;
+  let activityName = useLocalStorage("home-activity-name", '');
 
   const restart = () => {
     const goal = Date.now();
@@ -22,8 +23,10 @@
   const record = () => {
     const goal = Date.now();
     addLap({
+      name: $activityName,
       seconds: goal - $start,
     });
+    activityName.set('')
 
     animateSteps(100, ({ frame }) => {
       start.update((v) => v + Math.ceil(((goal - v) * frame) / 100));
@@ -55,6 +58,7 @@
       class="font-bold font-mono text-5xl border-2 border-solid border-slate-100 px-4 py-2 rounded-md">
       <TimeAgo start={$start} />
     </div>
+    <input class="text-center border-t-0 border-l-0 border-r-0 border-slate-100 border-solid text-2xl w-[350px] sm:w-[600px]" placeholder="What are you doing?" bind:value={$activityName} />
     <div class="flex gap-2">
       <SecondaryButton on:click={restart}>Restart</SecondaryButton>
       <PrimaryButton on:click={record}>Record</PrimaryButton>

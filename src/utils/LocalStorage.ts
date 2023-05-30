@@ -2,7 +2,7 @@ import {writable, type Writable} from "svelte/store";
 
 export const getLocalStorage = <T>(key: string, init: T, mutate?: (T) => T): T | null => {
   const text = localStorage.getItem(key);
-  if (!text) return init;
+  if (text == null) return init;
 
   if (typeof init === 'number') {
     const ans = parseInt(text);
